@@ -1,33 +1,45 @@
 # OpenBoard
 OpenBoard is an open source cross-platform interactive white board application designed for use in schools. It is a fork of Open-Sankoré, which was itself based on Uniboard.
 
-Supported platforms are Windows (7+), OS X (10.9+) and Linux (tested on Ubuntu 14.04, but should work with other distributions too).
+Supported platforms are Windows (7+), OS X (10.9+) and GNU/Linux (tested on Ubuntu 14.04, but should work with other distributions too).
+
+# Contribute
+
+Repositories OpenBoard-ThirdParty and OpenBoard-Importer are required to build. They should be checked out alongside OpenBoard's repo. OpenBoard-ThirdParty libraries should be built first; instructions are provided for each library (should be done by script, fix me!).
 
 # Dependencies
 
-The latest version (1.3) requires Qt 5.5. See below for Linux-specific instructions.
+## Qt 5.5 for GNU/Linux
 
-OpenBoard makes use of several third-party libraries, which are available in the OpenBoard-ThirdParty repository. These should be built first; instructions are provided for each library.
+Due to a shared library conflict within Qt5 on GNU/Linux (the Qt Multimedia and Qt Webkit modules are built against different versions of gstreamer by default), a specific installation of Qt5.5 is needed for all of OpenBoard's features to work correctly.
 
-## Linux
+### Any
+It can either be built from source, with the configure flag `-gstreamer 1.0` (see [here](http://doc.qt.io/qt-5/linux-building.html)).
 
-### Qt
-Due to a shared library conflict within Qt5 on Linux (the Qt Multimedia and Qt Webkit modules are built against different versions of gstreamer by default), a specific installation of Qt5.5 is needed for all of OpenBoard's features to work correctly.
-
-It can either be built from source, with the configure flag `-gstreamer 1.0` (see [here](http://doc.qt.io/qt-5/linux-building.html)), or installed from Stephan Binner's PPAs on Ubuntu.
-In the latter case, simply add the repositories and install Qt 5.5.1 like so:
+### Ubuntu
+Stephan Binner's PPAs on Ubuntu provides the package already built. Add his PPA and install it like so:
 
     sudo add-apt-repository ppa:beineri/opt-qt551-trusty
     sudo apt-get update
     sudo apt-get install qt-latest
 
-### Onboard
-OpenBoard has a built-in virtual keyboard, but also allows the use of an external OSK (which is now the default, as the built-in keyboard will likely be removed in a future release). 
-On Linux, Onboard is currently used as the external OSK. In case you can't or won't install it, you can simply use the built-in OSK instead. 
+### Debian
+An archive containing all the necessary packages and an install script is available [here](https://drive.google.com/open?id=0B7NtQ39nK8wxckw5VnpwWWVaenc).
+
+## Onboard
+Onboard has replaced the built-in keyboard.
+
+### Debian 8 Stable
+Since it is not supported in Debian 8 Stable, it is currently not working. This should be fixed by the usage of a Qt keyboard if Onboard is not present (fix me!).
 
 # Installation & Deployment
 
 Deployment scripts are provided for all three platforms. These take care of compiling OpenBoard, including the translations (for OpenBoard and for Qt), stripping the debug symbols, creating the installers etc.
 Minor modification to those scripts may be necessary depending on your configuration, to set the correct Qt path for example.
+
+## GNU/Linux
+Since different GNU/Linux distributions have different packaging systems, there are two scripts for Linux building: one common to all distributions to build the actual software (buildForLinux.sh) and one specific to the distribution. The distribution-specific script only packages the software, so it is assumed that the software has been built successfully prior to its invocation. Currently supported are:
+
+* Debian 8 (packageForDebian8.sh)
 
 
