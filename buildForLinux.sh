@@ -19,15 +19,6 @@
 #     functions
 #**********************
 
-checkUser()
-{
-  if [ `id -u` -ne 0 ]; then
-    echo "Please run the script as root, may be using fakeroot command as follow"
-    echo "fakeroot ./buildDebianPackage.sh [options]"
-    exit 1
-  fi
-}
-
 initializeVariables()
 {
   APPLICATION_NAME="OpenBoard"
@@ -143,10 +134,14 @@ buildImporter(){
     cd -
 }
 
+createBuildContext() {
+    BUILD_CONTEXT="buildContext"
+    echo $ARCHITECTURE > $BUILD_CONTEXT
+}
+
 #**********************
 #     script
 #**********************
-checkUser
 
 for var in "$@"
 do
@@ -164,6 +159,8 @@ done
 
 initializeVariables
 #buildWithStandardQt
+
+createBuildContext
 
 alertIfPreviousVersionInstalled
 
@@ -247,10 +244,25 @@ if [ $STANDARD_QT_USED == false ]; then
   copyQtLibrary libQt5PrintSupport
   copyQtLibrary libQt5Script
   copyQtLibrary libQt5Svg
+  copyQtLibrary libQt5Sql
   copyQtLibrary libQt5WebKit
   copyQtLibrary libQt5WebKitWidgets
+  copyQtLibrary libQt5WebChannel
+  copyQtLibrary libQt5Widgets
   copyQtLibrary libQt5Xml
   copyQtLibrary libQt5XmlPatterns
+  copyQtLibrary libQt5Quick
+  copyQtLibrary libQt5Qml
+  copyQtLibrary libQt5DBus
+  copyQtLibrary libQt5XcbQpa
+  copyQtLibrary libQt5WaylandClient
+  copyQtLibrary libQt5Sensors
+  copyQtLibrary libQt53DRenderer
+  copyQtLibrary libQt53DCore
+  copyQtLibrary libQt5Declarative
+  copyQtLibrary libQt5Positioning
+  copyQtLibrary libQt5Location
+  copyQtLibrary libQt5Designer
 fi
 
 notifyProgress "QT" "Internationalization"

@@ -60,6 +60,7 @@ install
 Makefile
 Makefile.Debug
 Makefile.Release
+buildContext
 
 # plugins #
 ###########
@@ -73,6 +74,12 @@ plugins/cffadaptor/objects
 #####################
 *.qm
 
+
+# Debian packaging #
+####################
+control
+md5sums
+debianPackage/usr/*
 
 # Others #
 ##########
