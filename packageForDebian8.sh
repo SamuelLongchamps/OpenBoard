@@ -23,7 +23,7 @@ cleanPackageBuild() {
 BASE_WORKING_DIR="debianPackage"
 
 PRODUCT_PATH="build/linux/release/product"
-APPLICATION_NAME="OpenBoard"
+APPLICATION_NAME="openboard"
 APPLICATION_CODE="openboard"
 APPLICATION_PATH="/usr/local"
 PACKAGE_DIRECTORY=$BASE_WORKING_DIR/$APPLICATION_PATH/$APPLICATION_CODE
@@ -59,7 +59,7 @@ echo "Installed-Size: `du -s $PACKAGE_DIRECTORY | awk '{ print $1 }'`" >> "$CONT
 echo "Maintainer: ${APPLICATION_NAME} Developers team <dev@oe-f.org>" >> "$CONTROL_FILE"
 echo "Homepage: https://github.com/DIP-SEM/OpenBoard" >> "$CONTROL_FILE"
 echo -n "Depends: " >> "$CONTROL_FILE"
-echo -n "libpaper1, zlib1g (>= 1.2.8), libssl1.0.0 (>= 1.0.1), libx11-6, libgl1-mesa-glx, libc6 (>= 2.19), libstdc++6 (>= 4.9.2), libgomp1, libgcc1 (>= 4.9.2)" >> "$CONTROL_FILE"
+echo -n "libpaper1, zlib1g (>= 1.2.8), libssl1.0.0 (>= 1.0.1), libx11-6, libgl1-mesa-glx, libc6 (>= 2.19), libstdc++6 (>= 4.9.2), libgomp1, libgcc1 (>= 4.9.2), libxcb-keysyms1, libxcb-render-util0, libxcb-image0, libxcb-icccm4" >> "$CONTROL_FILE"
 echo "" >> "$CONTROL_FILE"
 echo "Description: $DESCRIPTION" >> "$CONTROL_FILE"
 
@@ -68,15 +68,15 @@ mkdir -p $DESKTOP_FILE_PATH
 echo "[Desktop Entry]" > $APPLICATION_SHORTCUT
 echo "Version=$VERSION" >> $APPLICATION_SHORTCUT
 echo "Encoding=UTF-8" >> $APPLICATION_SHORTCUT
-echo "Name=${APPLICATION_NAME}" >> $APPLICATION_SHORTCUT
+echo "Name=OpenBoard" >> $APPLICATION_SHORTCUT
 echo "Comment=$DESCRIPTION" >> $APPLICATION_SHORTCUT
 echo "Exec=$APPLICATION_CODE %f" >> $APPLICATION_SHORTCUT
-echo "Icon=$APPLICATION_PATH/$APPLICATION_CODE/${APPLICATION_NAME}.png" >> $APPLICATION_SHORTCUT
+echo "Icon=$APPLICATION_PATH/$APPLICATION_CODE/OpenBoard.png" >> $APPLICATION_SHORTCUT
 echo "StartupNotify=true" >> $APPLICATION_SHORTCUT
 echo "Terminal=false" >> $APPLICATION_SHORTCUT
 echo "Type=Application" >> $APPLICATION_SHORTCUT
 echo "Categories=Education;" >> $APPLICATION_SHORTCUT
-cp "resources/images/${APPLICATION_NAME}.png" "$PACKAGE_DIRECTORY/${APPLICATION_NAME}.png"
+cp "resources/images/OpenBoard.png" "$PACKAGE_DIRECTORY/OpenBoard.png"
 
 # Create the package
 mkdir -p "install/linux"
